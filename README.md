@@ -3,7 +3,7 @@
 CEC-Tester is an open source tester for the CEC protocol, built in C++.
 This program is based on the [cec_simplest](https://github.com/DrGeoff/cec_simplest) example.
 
-<img src="screenshot/cec-tester.png" width="320">
+<img src="screenshot/cec-tester.png">
 
 ## Setup
 ### Libraries dependencies
