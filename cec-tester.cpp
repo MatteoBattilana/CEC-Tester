@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 {
 	std::cout << "\n" << std::endl;
 	std::cout << "################################################################################" << std::endl;
-	std::cout << "######                            CEC Tester                              ######" << std::endl;
+	std::cout << "######                            CEC-Tester                              ######" << std::endl;
 	std::cout << "######                       by Matteo Battilana                          ######" << std::endl;
 	std::cout << "################################################################################" << std::endl << std::endl;
 	std::cout << "Please connect to the CEC-Tester device on your television and press the shown "<<std::endl;
