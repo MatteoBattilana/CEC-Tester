@@ -11,7 +11,7 @@ In order to compile the CEC-Tester, you must install `libcec-dev` and `cec-utils
 The `Makefile` contains a rule in order to install these libraries for Ubuntu.
 
 ```
-  make install
+  make ubuntu-install
 ```
 
 ## Basic usage
