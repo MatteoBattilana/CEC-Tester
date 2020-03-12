@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 
 	// Setup
 	cec_config.clientVersion       = CEC::LIBCEC_VERSION_CURRENT;
-	cec_config.bActivateSource	   = 1;
+	cec_config.bActivateSource	   = 0;
 	cec_config.callbacks           = &cec_callbacks;
 	cec_config.deviceTypes.Add(CEC::CEC_DEVICE_TYPE_RECORDING_DEVICE);
 	cec_callbacks.keyPress    		 = &on_keypress;
@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 
 	// Try to automatically determine the CEC devices
 	std::array<CEC::cec_adapter_descriptor,10> devices;
-	int8_t devices_found = cec_adapter->DetectAdapters(devices.data(), devices.size(), nullptr, true);
+	int8_t devices_found = cec_adapter->DetectAdapters(devices.data(), devices.size(), NULL);
 	if( devices_found <= 0)
 	{
 		std::cout << "\tCEC supported\t\t\t\033[1;31m\u2715\033[0m" <<  std::endl;
@@ -87,13 +87,22 @@ int main(int argc, char* argv[])
 	// Open a connection to the zeroth CEC device
 	if( !cec_adapter->Open(devices[0].strComName) )
 	{
-		std::cout << "\tCEC supported\t\t\t\033[1;32m\u2715\033[0m" <<  std::endl;
+		std::cout << "\tLocal CEC supported\t\t\033[1;31m\u2715\033[0m" <<  std::endl;
 		std::cerr << "\t\033[1;31mFailed to open the CEC device on port " << devices[0].strComName  << std::endl;
 		std::cerr << std::endl << "Exiting.\033[0m" << std::endl;
 		UnloadLibCec(cec_adapter);
 		return 0;
 	}
-	std::cout << "\tCEC supported\t\t\t\033[1;32m\u2713\033[0m" <<  std::endl;
+	std::cout << "\tLocal CEC supported\t\t\033[1;32m\u2713\033[0m" <<  std::endl;
+
+	// Ping the device
+	if(!cec_adapter->PowerOnDevices())
+	{
+			std::cout << "\tRemote CEC supported\t\t\033[1;31m\u2715\033[0m" <<  std::endl;
+			UnloadLibCec(cec_adapter);
+			return 0;
+	}
+			std::cout << "\tRemote CEC supported\t\t\033[1;32m\u2713\033[0m" <<  std::endl;
 
 	for(const key &key : key_test)
 	{
